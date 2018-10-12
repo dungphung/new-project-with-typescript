@@ -1,17 +1,17 @@
+import { ActionCreator, Dispatch } from "redux";
+
 import { axios } from "../../utils";
-export const SET_LIST_TODO = "todo/set-list-todo";
-export const ADD_TODO = "todo/add-todo";
-export const REMOVE_TODO = "todo/remove-todo";
+import { Todo, TodoActionKeys as keys, setTodoType, addTodoType, removeTodoType } from "../models/todo";
 
-export function setListTodo(listTodo: any) {
+const setListTodo: ActionCreator<setTodoType> = (listTodos: Todo[]) => {
   return {
-    type: SET_LIST_TODO,
-    payload: listTodo
+    type: keys.SET_LIST_TODO,
+    payload: listTodos
   };
-}
+};
 
-export function getListTodo() {
-  return (dispatch: any) => {
+const getListTodo = () => {
+  return (dispatch: Dispatch<setTodoType>) => {
     axios
       .get("/posts")
       .then(response => {
@@ -24,17 +24,24 @@ export function getListTodo() {
         dispatch(setListTodo({}));
       });
   };
-}
+};
 
-export function addTodo(todo: any) {
+const addTodo: ActionCreator<addTodoType> = (todo: Todo) => {
   return {
-    type: ADD_TODO,
+    type: keys.ADD_TODO,
     payload: todo
   };
-}
+};
 
-export function postTodo(todo: any) {
-  return (dispatch: any) => {
+const removeTodo: ActionCreator<removeTodoType> = (id: number) => {
+  return {
+    type: keys.REMOVE_TODO,
+    payload: id
+  };
+};
+
+const postTodo = (todo: Todo) => {
+  return (dispatch: Dispatch<addTodoType>) => {
     axios
       .post("/posts", {
         params: {
@@ -51,11 +58,6 @@ export function postTodo(todo: any) {
         dispatch(addTodo(todo));
       });
   };
-}
+};
 
-export function removeTodo(id: any) {
-  return {
-    type: REMOVE_TODO,
-    payload: id
-  };
-}
+export { postTodo, removeTodo, addTodo, getListTodo, setListTodo };

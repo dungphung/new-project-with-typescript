@@ -1,42 +1,46 @@
-import { SET_LIST_TODO, ADD_TODO, REMOVE_TODO } from "../actions/todoAction";
 import update from "react-addons-update";
+import {
+  TodoActionKeys as keys,
+  TStateTodoReducer as TState,
+  addTodoType,
+  setTodoType,
+  removeTodoType
+} from "../models/todo";
 
-interface IState {
-  listTodos: Array<{}>;
-}
-const initialState = {
+const initialState: TState = {
   listTodos: []
 };
 
-export default function todoReducer(state = initialState, action: any) {
+export default function todoReducer(state = initialState, action: any): TState {
   switch (action.type) {
-    case SET_LIST_TODO:
+    case keys.SET_LIST_TODO:
       return setListTodo(state, action);
-    case ADD_TODO:
+
+    case keys.ADD_TODO:
       return addTodo(state, action);
 
-    case REMOVE_TODO:
+    case keys.REMOVE_TODO:
       return removeTodo(state, action);
     default:
       return state;
   }
 }
 
-export function setListTodo(state: IState, { payload }: any) {
+export function setListTodo(state: TState, { payload }: setTodoType): TState {
   return update(state, {
     listTodos: { $set: payload }
   });
 }
 
-export function addTodo(state: IState, { payload }: any) {
-  return update(state, {
-    listTodos: { $push: [payload] }
-  });
+export function addTodo(state: TState, { payload }: addTodoType): TState {
+  return {
+    listTodos: [...state.listTodos, payload]
+  };
 }
 
-export function removeTodo(state: IState, { payload }: any) {
-  const index = state.listTodos.findIndex((todo: any) => todo.id === payload);
-  return update(state, {
-    listTodos: { $splice: [[index, 1]] }
-  });
+export function removeTodo(state: TState, { payload }: removeTodoType): TState {
+  const filterState = state.listTodos.filter(todo => todo.id !== payload);
+  return {
+    listTodos: [...filterState]
+  };
 }

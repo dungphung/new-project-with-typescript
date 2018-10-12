@@ -1,10 +1,4 @@
-import {
-  setListTodo,
-  addTodo,
-  removeTodo,
-  getListTodo,
-  postTodo
-} from "./todoAction";
+import { setListTodo, addTodo, removeTodo, getListTodo, postTodo } from "./todoAction";
 
 export { setListTodo, addTodo, removeTodo, getListTodo, postTodo };
 

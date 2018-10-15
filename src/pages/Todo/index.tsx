@@ -4,19 +4,19 @@ import { FormTodo, TodoItem } from "../../layout/todo";
 import { connectAutoDispatch } from "../../utils";
 import { getListTodo, postTodo } from "../../redux/actions";
 
-interface Item {
+interface ITodo {
   id: number;
   title: string;
 }
 
 interface IProps {
-  listTodos: Array<Item>;
+  listTodos: ITodo[];
   getListTodo(): void;
-  postTodo(item: Item): void;
+  postTodo(item: ITodo): void;
 }
 
 interface IState {
-  listTodos: Array<Item>;
+  listTodos: ITodo[];
 }
 
 class TodoApp extends React.Component<IProps, IState> {
@@ -39,7 +39,7 @@ class TodoApp extends React.Component<IProps, IState> {
     this.props.getListTodo();
   }
 
-  public addItem(item: Item) {
+  public addItem(item: ITodo) {
     this.props.postTodo(item);
   }
 

@@ -1,12 +1,12 @@
 import * as React from "react";
 
-interface IState {
+export interface IState {
   title: string;
   id: number;
 }
 
 interface IProps {
-  addItem(todo: any): void;
+  addItem(todo: IState): void;
 }
 
 export default class FormTodo extends React.Component<IProps, IState> {

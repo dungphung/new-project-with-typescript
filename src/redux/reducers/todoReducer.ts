@@ -11,7 +11,7 @@ const initialState: TState = {
   listTodos: []
 };
 
-export default function todoReducer(state = initialState, action: any): TState {
+export default function todoReducer(state = initialState, action: setTodoType & addTodoType & removeTodoType): TState {
   switch (action.type) {
     case keys.SET_LIST_TODO:
       return setListTodo(state, action);

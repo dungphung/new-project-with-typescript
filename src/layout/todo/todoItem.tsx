@@ -1,10 +1,8 @@
 import * as React from "react";
+import { IState as ITodo } from "./formTodo";
 
 interface IProps {
-  items: Array<{
-    id: number;
-    title: string;
-  }>;
+  items: ITodo[];
 }
 
 const TodoItems: React.SFC<IProps> = ({ items }) => {

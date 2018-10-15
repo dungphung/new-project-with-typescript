@@ -10,17 +10,17 @@ type actionType = {
 };
 
 type removeTodoType = {
-  type: string;
+  type: TodoActionKeys.REMOVE_TODO;
   payload: number;
 };
 
 type setTodoType = {
-  type: string;
+  type: TodoActionKeys.SET_LIST_TODO;
   payload: Todo[];
 };
 
 type addTodoType = {
-  type: string;
+  type: TodoActionKeys.ADD_TODO;
   payload: Todo;
 };
 
